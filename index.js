@@ -1,39 +1,70 @@
 const express = require("express");
-const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const Task = require("./models/Task");
+require("dotenv").config();
+
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = 3000;
 
-let tasks = [];
-
+// Middleware
 app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.render("list", { tasks });
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
+
+// Show all tasks
+app.get("/", async (req, res) => {
+  const tasks = await Task.find();
+  res.render("index", { tasks, alert: null });
 });
 
-app.post("/add", (req, res) => {
-  const { task, priority } = req.body;
-  if (!task.trim()) {
-    return res.send("<script>alert('Task cannot be empty'); window.location.href='/'</script>");
+// Add a new task
+app.post("/add", async (req, res) => {
+  const { title, priority } = req.body;
+
+  if (!title.trim()) {
+    const tasks = await Task.find();
+    return res.render("index", { tasks, alert: "Task title cannot be empty!" });
   }
-  tasks.push({ id: Date.now(), name: task, priority });
-  res.redirect("/");
+
+  const newTask = new Task({ title, priority });
+  await newTask.save();
+  const tasks = await Task.find();
+  res.render("index", { tasks, alert: "✅ Task added successfully!" });
 });
 
-app.post("/delete", (req, res) => {
-  const id = parseInt(req.body.id);
-  tasks = tasks.filter(task => task.id !== id);
-  res.redirect("/");
+// Delete a task
+app.post("/delete/:id", async (req, res) => {
+  const taskId = req.params.id;
+  await Task.findByIdAndDelete(taskId);
+  const tasks = await Task.find();
+  res.render("index", { tasks, alert: "🗑️ Task deleted successfully!" });
 });
 
-app.post("/edit", (req, res) => {
-  const { id, task, priority } = req.body;
-  tasks = tasks.map(t => t.id == id ? { ...t, name: task, priority } : t);
-  res.redirect("/");
+// Update a task
+app.post("/edit/:id", async (req, res) => {
+  const taskId = req.params.id;
+  const { updatedTitle, updatedPriority } = req.body;
+
+  if (!updatedTitle.trim()) {
+    const tasks = await Task.find();
+    return res.render("index", { tasks, alert: "⚠️ Title cannot be empty!" });
+  }
+
+  await Task.findByIdAndUpdate(taskId, {
+    title: updatedTitle,
+    priority: updatedPriority,
+  });
+
+  const tasks = await Task.find();
+  res.render("index", { tasks, alert: "✏️ Task updated successfully!" });
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+// Start server
+app.listen(PORT, () => {
+  console.log(`🚀 Server started on port ${PORT}`);
 });

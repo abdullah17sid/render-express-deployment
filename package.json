@@ -7,10 +7,22 @@
   },
   "author": "Abdullah",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "body-parser": "^2.2.0",
+    "dotenv": "^16.5.0",
     "ejs": "^3.1.10",
-    "express": "^5.1.0"
-  }
+    "express": "^5.1.0",
+    "mongodb": "^6.17.0",
+    "mongoose": "^8.15.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdullah17sid/render-express-deployment.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/abdullah17sid/render-express-deployment/issues"
+  },
+  "homepage": "https://github.com/abdullah17sid/render-express-deployment#readme",
+  "description": ""
 }
