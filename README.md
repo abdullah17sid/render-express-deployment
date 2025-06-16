@@ -1,40 +1,30 @@
-## 🚀 Live Demo
+# 📌 Todo List Web Application
 
-[Click here to view the deployed project](https://render-express-deployment-2276.onrender.com/)
-# 📝 Task Manager To-Do App
-
-A dynamic and responsive To-Do List web application built with **Node.js**, **Express.js**, **EJS**, and **MongoDB Atlas**. Users can create, update, and delete tasks, with priorities like `low`, `high`, and `urgent`.
+A full-stack Todo List web app built using **Node.js**, **Express.js**, **EJS**, and **MongoDB Atlas**. This app allows users to add, edit, and delete tasks, each with a priority level (`low`, `high`, `urgent`). Data is stored persistently in a MongoDB Atlas database.
 
 ---
 
-## 📸 Demo
+## ⚙️ Features
 
-![App Screenshot](https://your-image-link.com/screenshot.png)
-
-Live Site: [https://your-image-link.com/screenshot.png](https://your-image-link.com/screenshot.png)
-
----
-
-## 🚀 Features
-
-- ✅ Add, edit, and delete tasks
-- ⚠️ Priority-based tagging (`Low`, `High`, `Urgent`)
-- 💾 MongoDB Atlas for persistent storage
-- ✏️ Inline editing with pencil icon
-- 🗑️ Delete tasks with trash icon
-- 📦 Bootstrap-styled responsive layout
-- ⚠️ Alerts for empty task title or confirmation messages
+- ✅ Add tasks with title and priority
+- ✏️ Edit tasks using inline forms
+- 🗑️ Delete tasks
+- ⚠️ Alert on empty input
+- 🌐 Dynamic rendering with EJS
+- 💾 MongoDB Atlas data persistence
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Technology Stack
 
-- **Frontend**: HTML, CSS, Bootstrap, EJS
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB Atlas
-- **Templating Engine**: EJS
+| Technology     | Purpose                      |
+|----------------|------------------------------|
+| Node.js        | Server-side JavaScript       |
+| Express.js     | Web framework for Node       |
+| EJS            | Templating engine            |
+| MongoDB Atlas  | Cloud NoSQL database         |
+| Mongoose       | ODM for MongoDB              |
+| HTML/CSS       | Frontend layout and styling  |
 
----
 
-## 📂 Folder Structure
 
