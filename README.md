@@ -1,6 +1,12 @@
-# 📝 Todo List App
+ # 📝 Todo List App
 
 A dynamic, responsive Todo List web app built with **Node.js**, **Express**, **MongoDB**, and **EJS**, with full CRUD functionality and RESTful routes. This project allows users to add, edit, and delete tasks, with support for task priority levels.
+
+---
+
+## 🔗 Live Project
+
+👉 [Visit the App](https://render-data-deployment.onrender.com)
 
 ---
 
@@ -12,7 +18,7 @@ A dynamic, responsive Todo List web app built with **Node.js**, **Express**, **M
 - ⚠️ Form validation for empty inputs
 - 💾 MongoDB Atlas integration
 - 🎨 Clean, responsive UI with EJS and CSS
-- 🌐 Deployed on Render (optional)
+- 🌐 Deployed on Render
 
 ---
 
@@ -24,8 +30,4 @@ A dynamic, responsive Todo List web app built with **Node.js**, **Express**, **M
 - **Middleware**: method-override, dotenv
 - **Frontend**: HTML, CSS (static files)
 - **Deployment**: Render
-
----
-
-## 📂 Project Structure
 
