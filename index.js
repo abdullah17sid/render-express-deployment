@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Task = require("./models/Task");
+const methodOverride = require("method-override");
 require("dotenv").config();
 
 const app = express();
@@ -10,8 +11,9 @@ const PORT = 3000;
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use(methodOverride("_method"));
 
-// Connect to MongoDB
+// MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
@@ -22,32 +24,28 @@ app.get("/", async (req, res) => {
   res.render("index", { tasks, alert: null });
 });
 
-// Add a new task
+// Add task
 app.post("/add", async (req, res) => {
   const { title, priority } = req.body;
-
   if (!title.trim()) {
     const tasks = await Task.find();
-    return res.render("index", { tasks, alert: "Task title cannot be empty!" });
+    return res.render("index", { tasks, alert: "⚠️ Title cannot be empty!" });
   }
 
-  const newTask = new Task({ title, priority });
-  await newTask.save();
+  await new Task({ title, priority }).save();
   const tasks = await Task.find();
   res.render("index", { tasks, alert: "✅ Task added successfully!" });
 });
 
-// Delete a task
-app.post("/delete/:id", async (req, res) => {
-  const taskId = req.params.id;
-  await Task.findByIdAndDelete(taskId);
+// Delete task
+app.delete("/delete/:id", async (req, res) => {
+  await Task.findByIdAndDelete(req.params.id);
   const tasks = await Task.find();
   res.render("index", { tasks, alert: "🗑️ Task deleted successfully!" });
 });
 
-// Update a task
-app.post("/edit/:id", async (req, res) => {
-  const taskId = req.params.id;
+// Edit task
+app.put("/edit/:id", async (req, res) => {
   const { updatedTitle, updatedPriority } = req.body;
 
   if (!updatedTitle.trim()) {
@@ -55,7 +53,7 @@ app.post("/edit/:id", async (req, res) => {
     return res.render("index", { tasks, alert: "⚠️ Title cannot be empty!" });
   }
 
-  await Task.findByIdAndUpdate(taskId, {
+  await Task.findByIdAndUpdate(req.params.id, {
     title: updatedTitle,
     priority: updatedPriority,
   });

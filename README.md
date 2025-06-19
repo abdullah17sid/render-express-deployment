@@ -9,7 +9,6 @@ A dynamic and responsive To-Do List web application built with **Node.js**, **Ex
 
 ## 📸 Demo
 
-![App Screenshot](https://your-image-link.com/screenshot.png)
 
 Live Site: [https://your-image-link.com/screenshot.png](https://your-image-link.com/screenshot.png)
 

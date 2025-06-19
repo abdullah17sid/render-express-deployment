@@ -1,14 +1,11 @@
 const mongoose = require("mongoose");
 
 const taskSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
+  title: String,
   priority: {
     type: String,
-    enum: ['urgent', 'high', 'low'],
-    default: 'low'
+    enum: ["low", "high", "urgent"],
+    default: "low",
   }
 });
 
